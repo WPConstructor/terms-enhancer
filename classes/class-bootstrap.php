@@ -50,7 +50,7 @@ class Bootstrap {
 	 * @return void
 	 */
 	private function init() {
-		
+
 		/**
 		 * Adds support for the classic theme.
 		 */
@@ -62,9 +62,9 @@ class Bootstrap {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor' ) );
 
 		/**
-		 * Adds Javascript to head.
+		 * Enqueue block editor CSS.
 		 */
-		add_action( 'admin_head', array( $this, 'admin_head' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
 
 		/**
 		 * Loads the render class.
@@ -78,20 +78,6 @@ class Bootstrap {
 	}
 
 	/**
-	 * Adds Javascript CSS Style Sheet Var to Head.
-	 *
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function admin_head() {
-		if ( true === $this->add_head ) {
-			echo '<script>var WTCCssStyleSheet = "' . esc_url( PLUGIN_URL . 'css/editor.css' ) . '";</script>';
-		}
-	}
-
-	/**
 	 * Enqueue "blocks.js".
 	 *
 	 * Adds the callback for enqueueing the block.js if in block editor.
@@ -102,26 +88,24 @@ class Bootstrap {
 		wp_enqueue_script(
 			'wpcn-display-term-counts-blocks',
 			PLUGIN_URL . 'js/blocks.js',
-			array(), /*array( 'wp-blocks', 'wp-editor', 'wp-components', 'react', 'wp-element', 'wp-i18n' ),*/
+			array(
+				'wp-hooks',
+				'wp-compose',
+				'wp-block-editor',
+				'wp-components',
+				'wp-element',
+			),
 			VERSION,
 			true
 		);
-
-		// Enqueue the stylesheet.
-		wp_enqueue_style( 'wpcn-display-term-counts-editor-styles', PLUGIN_URL . 'css/editor.css', array(), VERSION );
-
-		$this->add_head = true;
 	}
 
 	/**
-	 * Adds Javascript CSS Style Sheet Var to Head if true.
-	 *
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 *
-	 * @var bool
+	 * Adds CSS to the block editor content.
 	 */
-	private $add_head = false;
+	public function enqueue_block_assets() {
+		wp_enqueue_style( 'wpcn-display-term-counts-editor', PLUGIN_URL . 'css/editor.css', array(), VERSION );
+	}
 
 	/**
 	 * Class Theme Tag Content

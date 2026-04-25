@@ -1,4 +1,19 @@
 <?php
+/**
+ * Plugin Name: WPConstructor Display Term Counts
+ * Plugin URI: https://wpconstructor.com/wpconstructor-display-term-counts/
+ * Description: WPConstructor Display Term Counts is a WordPress plugin that displays the total number of terms within the post terms block or in classic theme templates.
+ * Version: 0.1.0
+ * Requires at least: 6.0
+ * Requires PHP: 8.0
+ * Author: WPConstructor
+ * Author URI: https://webconstruction.ch
+ * License: GPL-3.0-or-later http://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain: /languages
+ *
+ * @package    WPConstructor\DisplayTermCounts
+ */
+
 /** 
  * WPConstructor Display Term Counts main file.
  *
@@ -7,25 +22,11 @@
  * calls the \WPConstructor\DisplayTermCounts\Bootstrap Class
  * which handles the bootstraping of this plugin.
  *
- * @package    WPConstructor\DisplayTermCounts
  * @copyright  2026 by WPConstructor
- * @license    GPL-2.0+ http://www.gnu.org/licenses/gpl-2.0.txt
+ * @license    GPL-3.0-or-later http://www.gnu.org/licenses/gpl-3.0.txt
  * @version    1.0.0 
  * @since      1.0.0 
  */
-
-/*
- * Plugin Name: WPConstructor Display Term Counts
- * Plugin URI: https://wpconstructor.com/wpconstructor-display-term-counts/
- * Description: WPConstructor Display Term Counts is a WordPress plugin that displays the total number of terms within the post terms block or in classic theme templates.
- * Version: 0.1.0
- * Requires at least: 5.0
- * Requires PHP: 5.6.20
- * Author: WPConstructor
- * Author URI: https://webconstruction.ch
- * License: GPL-2.0+ http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: /languages
-*/
 
 namespace WPConstructor\DisplayTermCounts;
 
