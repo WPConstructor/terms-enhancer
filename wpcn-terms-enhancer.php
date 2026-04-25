@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WPConstructor Terms Enhancer
  * Plugin URI: https://wpconstructor.com/wpconstructor-terms-enhancer/
- * Description: WPConstructor Terms Enhancer is a WordPress plugin that displays the total number of terms within the post terms block or in classic theme templates.
+ * Description: Enhance the WordPress Post Terms block with term counts, smart link control, and display improvements for better taxonomy UX.
  * Version: 0.2.0
  * Requires at least: 6.0
  * Requires PHP: 8.0
