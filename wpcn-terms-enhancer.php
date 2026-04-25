@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WPConstructor Display Term Counts
- * Plugin URI: https://wpconstructor.com/wpconstructor-display-term-counts/
- * Description: WPConstructor Display Term Counts is a WordPress plugin that displays the total number of terms within the post terms block or in classic theme templates.
- * Version: 0.1.0
+ * Plugin Name: WPConstructor Terms Enhancer
+ * Plugin URI: https://wpconstructor.com/wpconstructor-terms-enhancer/
+ * Description: WPConstructor Terms Enhancer is a WordPress plugin that displays the total number of terms within the post terms block or in classic theme templates.
+ * Version: 0.2.0
  * Requires at least: 6.0
  * Requires PHP: 8.0
  * Author: WPConstructor
@@ -11,15 +11,14 @@
  * License: GPL-3.0-or-later http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: /languages
  *
- * @package    WPConstructor\DisplayTermCounts
+ * @package    WPConstructor\TermsEnhancer
  */
 
 /** 
- * WPConstructor Display Term Counts main file.
+ * WPConstructor Terms Enhancer main file.
  *
- * This file handles the entry point of the WPConstructor Display
- * Term Counts plugin. It sets up a class autoloading and
- * calls the \WPConstructor\DisplayTermCounts\Bootstrap Class
+ * This file handles the entry point of the WPConstructor Terms Enhancer plugin.
+ * It sets up a class autoloading and calls the \WPConstructor\TermsEnhancer\Bootstrap Class
  * which handles the bootstraping of this plugin.
  *
  * @copyright  2026 by WPConstructor
@@ -28,7 +27,7 @@
  * @since      1.0.0 
  */
 
-namespace WPConstructor\DisplayTermCounts;
+namespace WPConstructor\TermsEnhancer;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -68,7 +67,7 @@ spl_autoload_register(
 	function ( $required_class ) {
 		$required_class = strtolower( str_replace( '\\', '/', $required_class ) );
 		$pieces         = explode( '/', $required_class );
-		if ( strtolower( 'WPConstructor' ) === $pieces[0] && strtolower( 'DisplayTermCounts' ) === $pieces[1] ) {
+		if ( strtolower( 'WPConstructor' ) === $pieces[0] && strtolower( 'TermsEnhancer' ) === $pieces[1] ) {
 			unset( $pieces[0] );
 			unset( $pieces[1] );
 			$pieces = array_values( $pieces );

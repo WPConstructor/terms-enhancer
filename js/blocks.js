@@ -1,12 +1,18 @@
 /**
  * WPConstructor - Extension for core/post-terms
- * @param wp
+ *
+ * @package
+ * @license GPL-3.0-or-later
+ * @version 1.0.0
+ * @since 1.0.0
+ *
+ * @param {Object} wp The wp object.
  */
 
 (function (wp) {
 	const { addFilter } = wp.hooks;
 	const { createHigherOrderComponent } = wp.compose;
-	const { InspectorControls, BlockListBlock } = wp.blockEditor;
+	const { InspectorControls } = wp.blockEditor;
 	const { PanelBody, ToggleControl } = wp.components;
 	const { createElement: el, Fragment } = wp.element;
 

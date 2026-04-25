@@ -3,16 +3,16 @@
  * Bootstrap Class file.
  *
  * This file holds the class of the main bootstrap class
- * which handles the bootstrapping of wpcn Display Term Counts. 
+ * which handles the bootstrapping of wpcn Terms Enhancer. 
  *
- * @package    WPConstructor\DisplayTermCounts
+ * @package    WPConstructor\TermsEnhancer
  * @copyright  2026 by WPConstructor
  * @license    GPL-3.0-or-later http://www.gnu.org/licenses/gpl-3.0.txt
  * @version    1.0.0 
  * @since      1.0.0 
  */
 
-namespace WPConstructor\DisplayTermCounts;
+namespace WPConstructor\TermsEnhancer;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Class Bootstrap
  *
- * The Bootstrap Class of wpcn Display Term Counts.
+ * The Bootstrap Class of wpcn Terms Enhancer.
  *
  * @version 1.0.0
  * @since 1.0.0
@@ -86,7 +86,7 @@ class Bootstrap {
 		// Enqueue block editor JavaScript file.
 
 		wp_enqueue_script(
-			'wpcn-display-term-counts-blocks',
+			'wpcn-terms-enhancer-blocks',
 			PLUGIN_URL . 'js/blocks.js',
 			array(
 				'wp-hooks',
@@ -104,11 +104,11 @@ class Bootstrap {
 	 * Adds CSS to the block editor content.
 	 */
 	public function enqueue_block_assets() {
-		wp_enqueue_style( 'wpcn-display-term-counts-editor', PLUGIN_URL . 'css/editor.css', array(), VERSION );
+		wp_enqueue_style( 'wpcn-terms-enhancer-editor', PLUGIN_URL . 'css/editor.css', array(), VERSION );
 	}
 
 	/**
-	 * Class Theme Tag Content
+	 * Classic Theme Tag Content
 	 *
 	 * Changes the content of the tags for classic theme tag content.
 	 *

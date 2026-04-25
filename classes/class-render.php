@@ -3,16 +3,16 @@
  * Render Class file.
  *
  * This file holds the class of the render class which handles
- * the rendering of WPConstructor Display Term Counts. 
+ * the rendering of WPConstructor Terms Enhancer. 
  *
- * @package    WPConstructor\DisplayTermCounts
+ * @package    WPConstructor\TermsEnhancer
  * @copyright  2026 by WPConstructor
  * @license    GPL-3.0-or-later http://www.gnu.org/licenses/gpl-3.0.txt
  * @version    1.0.0 
  * @since      1.0.0 
  */
 
-namespace WPConstructor\DisplayTermCounts;
+namespace WPConstructor\TermsEnhancer;
 
 use DOMDocument;
 
@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Class Render
  *
- * The Render Class of WPConstructor Display Term Counts.
+ * The Render Class of WPConstructor Terms Enhancer.
  *
  * @version 1.0.0
  * @since 1.0.0
@@ -57,11 +57,15 @@ class Render {
 	 */
 	public function render( $block_content, $block ) {
 		if ( 'core/post-terms' === $block['blockName'] ) {
+			d( $block );
 			if ( isset( $block['attrs']['displayCounts'] ) && true === $block['attrs']['displayCounts'] ) {
-				$terms = $this->get_text_between_a_tags( $block_content );
-				foreach ( $terms as $term ) {
-					$counts        = $this->get_used_post_term_tag_count( $term );
-					$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
+				if ( isset( $block['attrs']['term'] ) ) {
+					$term_type = $block['attrs']['term'];
+					$terms     = $this->get_text_between_a_tags( $block_content );
+					foreach ( $terms as $term ) {
+						$counts        = $this->get_used_post_term_tag_count( $term, $term_type );
+						$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
+					}
 				}
 			}
 		}
@@ -87,10 +91,11 @@ class Render {
 	 * @since 1.0.0
 	 *
 	 * @param string $term_name The term name.
+	 * @param string $term_type The term slug/type.
 	 * @return int The amount of used terms to the name.
 	 */
-	private function get_used_post_term_tag_count( $term_name ) {
-		$term = get_term_by( 'name', $term_name, 'post_tag' );
+	private function get_used_post_term_tag_count( $term_name, $term_type ) {
+		$term = get_term_by( 'name', $term_name, $term_type );
 		if ( ! $term || is_wp_error( $term ) ) {
 			return 0;
 		}

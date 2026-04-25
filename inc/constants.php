@@ -1,17 +1,17 @@
 <?php
 /** 
- * WPConstructor Display Term Counts Constants Class file.
+ * WPConstructor Terms Enhancer Constants Class file.
  *
- * This file sets the constants of the WPConstructor Display Term Counts plugin. 
+ * This file sets the constants of the WPConstructor Terms Enhancer plugin. 
  *
- * @package    WPConstructor\DisplayTermCounts
+ * @package    WPConstructor\TermsEnhancer
  * @copyright  (c) 2024 by WPConstructor
  * @license    GPL-2.0+ http://www.gnu.org/licenses/gpl-2.0.txt
  * @version    1.0.0 
  * @since      1.0.0 
  */
 
-namespace WPConstructor\DisplayTermCounts;
+namespace WPConstructor\TermsEnhancer;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
