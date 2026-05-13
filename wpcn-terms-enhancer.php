@@ -37,6 +37,17 @@ if ( ! defined( 'WPINC' ) ) {
 // Require Composer autoloader.
 require_once __DIR__ . '/vendor/autoload.php';
 
+$main_file = __FILE__;
+
+$plugin_version = require __DIR__ . '/vendor/wpconstructor/plugin-version/src/includes/plugin-version.php';
+
+// If requirements are not met and the constant WPCONSTR_PLUGIN_VERSION_ALWAYS_RUN is not set or false, stop execution.
+if ( false === $plugin_version ) {
+	return; // Stop execution if requirements are not met.
+}
+
+define( __NAMESPACE__ . '\\VERSION', $plugin_version );
+
 // Sets plugin dirs of the parent dir.
 define( __NAMESPACE__ . '\\MAIN_FILE', __FILE__ );
 

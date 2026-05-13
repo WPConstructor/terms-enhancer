@@ -16,5 +16,8 @@
         "psr-4": {
             "WPConstructor\\TermsEnhancer\\": "src/"
         }
+    },
+    "require": {
+        "wpconstructor/plugin-version": "^1.0"
     }
 }

@@ -18,18 +18,8 @@ if ( ! defined( 'WPINC' ) ) {
 	die();
 }
 
-// Gets plugin version.
-if ( ! function_exists( 'get_plugin_data' ) ) {
-	require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
-$plugin_data    = get_plugin_data( MAIN_FILE );
-$plugin_version = $plugin_data['Version'];
-
 // Sets plugin dirs of the parent dir.
 define( __NAMESPACE__ . '\\PLUGIN_DIR', plugin_dir_path( MAIN_FILE ) );
-
-// Sets plugin version.
-define( __NAMESPACE__ . '\\VERSION', $plugin_version );
 
 /**
  * Init action callback.
