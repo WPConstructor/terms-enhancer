@@ -60,14 +60,9 @@ class Render {
 			return $block_content;
 		}
 
-		if (
-			empty( $block['attrs']['displayCounts'] ) ||
-			empty( $block['attrs']['term'] )
-		) {
+		if ( empty( $block['attrs']['term'] ) ) {
 			return $block_content;
 		}
-
-		d( $block['attrs']['term'] );
 
 		$term_type = $block['attrs']['term'];
 
@@ -103,9 +98,11 @@ class Render {
 
 			$counts = $this->get_used_post_term_tag_count( $term, $term_type );
 
-			// Append count safely.
-			// phpcs:ignore
-			$link->nodeValue = $term . ' (' . $counts . ')';
+			// Append count safely if display counts attribute isn't empty (is true).
+			if ( ! empty( $block['attrs']['displayCounts'] ) ) {
+				// phpcs:ignore
+				$link->nodeValue = $term . ' (' . $counts . ')';
+			}
 
 			// Disable only if count === 1.
 			if ( ! empty( $block['attrs']['removeSingleLinks'] ) && 1 === $counts ) {
