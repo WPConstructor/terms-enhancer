@@ -5,7 +5,7 @@
  * Description: Enhance the WordPress Post Terms block with term counts and smart link control.
  * Version: 0.3.0
  * Requires at least: 6.0
- * Requires PHP: 8.0
+ * Requires PHP: 7.1
  * Author: WPConstructor
  * Author URI: https://wpconstructor.com
  * License: GPL-3.0-or-later http://www.gnu.org/licenses/gpl-3.0.txt
