@@ -104,7 +104,7 @@ class Bootstrap {
 	 * Adds CSS to the block editor content.
 	 */
 	public function enqueue_block_assets() {
-		wp_enqueue_style( 'wpcn-terms-enhancer-editor', PLUGIN_URL . 'css/editor.css', array(), VERSION );
+		wp_enqueue_style( 'wpcn-terms-enhancer-editor', PLUGIN_URL . 'assets/css/editor.css', array(), VERSION );
 	}
 
 	/**
