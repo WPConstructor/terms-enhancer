@@ -72,9 +72,13 @@ class Render {
 		libxml_use_internal_errors( true );
 
 		$dom = new \DOMDocument();
+
 		$dom->loadHTML(
-			mb_convert_encoding( $block_content, 'HTML-ENTITIES', 'UTF-8' )
+			$block_content,
+			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
 		);
+
+		libxml_clear_errors();
 
 		$xpath = new \DOMXPath( $dom );
 
@@ -116,18 +120,7 @@ class Render {
 			}
 		}
 
-		$html = $dom->saveHTML();
-
-		// Optional cleanup: remove doctype/html/body wrappers added by DOMDocument.
-		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
-
-		$result = '';
-		// phpcs:ignore
-		foreach ( $body->childNodes as $child ) {
-			$result .= $dom->saveHTML( $child );
-		}
-
-		return $result;
+		return $dom->saveHTML();
 	}
 
 	/**
