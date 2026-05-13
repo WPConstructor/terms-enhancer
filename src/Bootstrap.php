@@ -12,6 +12,8 @@
  * @since      1.0.0 
  */
 
+// phpcs:disable WordPress.Files.FileName.InvalidClassFileName,WordPress.Files.FileName
+
 namespace WPConstructor\TermsEnhancer;
 
 // If this file is called directly, abort.

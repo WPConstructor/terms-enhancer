@@ -12,6 +12,8 @@
  * @since      1.0.0 
  */
 
+// phpcs:disable WordPress.Files.FileName.InvalidClassFileName,WordPress.Files.FileName
+
 namespace WPConstructor\TermsEnhancer;
 
 use DOMDocument;
@@ -55,7 +57,7 @@ class Render {
 	 * @param array  $block The block array.
 	 * @return string The block content.
 	 */
-	public function render( $block_content, $block ) {
+	public function render( string $block_content, array $block ): string {
 		if ( 'core/post-terms' === $block['blockName'] ) {
 			d( $block );
 			if ( isset( $block['attrs']['displayCounts'] ) && true === $block['attrs']['displayCounts'] ) {
@@ -80,7 +82,7 @@ class Render {
 	 *
 	 * @return void
 	 */
-	private function init() {
+	private function init(): void {
 		add_filter( 'render_block', array( $this, 'render' ), 10, 2 );
 	}
 
@@ -94,7 +96,7 @@ class Render {
 	 * @param string $term_type The term slug/type.
 	 * @return int The amount of used terms to the name.
 	 */
-	private function get_used_post_term_tag_count( $term_name, $term_type ) {
+	private function get_used_post_term_tag_count( string $term_name, string $term_type ): int {
 		$term = get_term_by( 'name', $term_name, $term_type );
 		if ( ! $term || is_wp_error( $term ) ) {
 			return 0;
@@ -112,7 +114,7 @@ class Render {
 	 * @param string $html The html to get the a tags.
 	 * @return array The texts of the a tags.
 	 */
-	private function get_text_between_a_tags( $html ) {
+	private function get_text_between_a_tags( string $html ): array {
 
 		if ( trim( $html ) === '' ) {
 			return array();
@@ -145,7 +147,7 @@ class Render {
 	 * @param string $subject The subject to replace.
 	 * @return string The replaced string subject.
 	 */
-	private function replace_first_occurrence( $search, $replace, $subject ) {
+	private function replace_first_occurrence( string $search, string $replace, string $subject ): string {
 		$pos = strpos( $subject, $search );
 
 		if ( false !== $pos ) {
