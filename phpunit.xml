@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+    bootstrap="vendor/autoload.php"
+    colors="true"
+    stopOnFailure="false"
+    verbose="true"
+    processIsolation="false"
+>
+
+    <testsuites>
+        <testsuite name="Plugin Unit Tests">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <!-- Strict error handling -->
+        <ini name="error_reporting" value="-1"/>
+        <ini name="display_errors" value="1"/>
+
+        <!-- Useful for debugging -->
+        <ini name="log_errors" value="1"/>
+
+        <!-- Prevent external HTTP calls -->
+        <env name="WP_HTTP_BLOCK_EXTERNAL" value="1"/>
+    </php>
+
+</phpunit>

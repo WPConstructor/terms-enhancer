@@ -17,7 +17,15 @@
             "WPConstructor\\TermsEnhancer\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
         "wpconstructor/plugin-version": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
     }
 }

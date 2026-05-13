@@ -54,4 +54,4 @@ define( __NAMESPACE__ . '\\MAIN_FILE', __FILE__ );
 // Requires and sets the constants used in this plugin.
 require_once __DIR__ . '/src/constants.php';
 
-new Bootstrap();
+new Bootstrap( true );

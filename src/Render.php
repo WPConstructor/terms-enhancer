@@ -18,11 +18,6 @@ namespace WPConstructor\TermsEnhancer;
 
 use DOMDocument;
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die();
-}
-
 /**
  * Class Render
  *
@@ -39,10 +34,13 @@ class Render {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
+	 * @param bool $init Init hooks.
 	 * @return void
 	 */
-	public function __construct() {
-		$this->init();
+	public function __construct( bool $init = false ) {
+		if ( $init ) {
+			$this->init();
+		}
 	}
 
 	/**
@@ -110,7 +108,7 @@ class Render {
 				$new_style = 'cursor:not-allowed';
 
 				if ( '' !== trim( $existing_style ) ) {
-					// Ensure proper spacing between declarations
+					// Ensure proper spacing between declarations.
 					$new_style = rtrim( $existing_style, ';' ) . '; ' . $new_style;
 				}
 
@@ -154,7 +152,7 @@ class Render {
 	 * @param string $term_type The term slug/type.
 	 * @return int The amount of used terms to the name.
 	 */
-	private function get_used_post_term_tag_count( string $term_name, string $term_type ): int {
+	protected function get_used_post_term_tag_count( string $term_name, string $term_type ): int {
 		$term = get_term_by( 'name', $term_name, $term_type );
 		if ( ! $term || is_wp_error( $term ) ) {
 			return 0;

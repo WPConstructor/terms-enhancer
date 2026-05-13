@@ -16,11 +16,6 @@
 
 namespace WPConstructor\TermsEnhancer;
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die();
-}
-
 /**
  * Class Bootstrap
  *
