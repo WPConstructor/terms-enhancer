@@ -67,6 +67,8 @@ class Render {
 			return $block_content;
 		}
 
+		d( $block['attrs']['term'] );
+
 		$term_type = $block['attrs']['term'];
 
 		libxml_use_internal_errors( true );
@@ -106,7 +108,7 @@ class Render {
 			$link->nodeValue = $term . ' (' . $counts . ')';
 
 			// Disable only if count === 1.
-			if ( 1 === $counts ) {
+			if ( ! empty( $block['attrs']['removeSingleLinks'] ) && 1 === $counts ) {
 				$existing_style = $link->getAttribute( 'style' );
 
 				$new_style = 'cursor:not-allowed';

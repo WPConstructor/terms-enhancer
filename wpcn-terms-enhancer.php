@@ -3,7 +3,7 @@
  * Plugin Name: WPConstructor Terms Enhancer
  * Plugin URI: https://wpconstructor.com/wpconstructor-terms-enhancer/
  * Description: Enhance the WordPress Post Terms block with term counts and smart link control.
- * Version: 0.3.0
+ * Version: 0.4.0
  * Requires at least: 6.0
  * Requires PHP: 7.1
  * Author: WPConstructor
@@ -54,4 +54,4 @@ define( __NAMESPACE__ . '\\MAIN_FILE', __FILE__ );
 // Requires and sets the constants used in this plugin.
 require_once __DIR__ . '/src/constants.php';
 
-new Bootstrap( true );
+new Bootstrap();

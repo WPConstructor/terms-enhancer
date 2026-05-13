@@ -69,7 +69,7 @@ class Bootstrap {
 		add_action(
 			'init',
 			function () {
-				new Render();
+				new Render( true );
 			}
 		);
 	}

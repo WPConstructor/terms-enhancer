@@ -31,6 +31,10 @@
 				displayCounts: {
 					type: 'boolean',
 					default: false
+				},
+				removeSingleLinks: {
+					type: 'boolean',
+					default: false
 				}
 			});
 
@@ -47,7 +51,7 @@
 				return el(BlockEdit, props);
 			}
 
-			const { displayCounts } = props.attributes;
+			const { displayCounts, removeSingleLinks } = props.attributes;
 
 			return el(
 				Fragment,
@@ -59,13 +63,22 @@
 						{},
 						el(
 							PanelBody,
-							{ title: 'WPConstructor Settings' },
+							{ title: 'WPConstructor Terms Enhancer Settings' },
 							el(ToggleControl, {
 								label: 'Display term counts',
 								checked: !!displayCounts,
 								onChange(value) {
 									props.setAttributes({
 										displayCounts: value
+									});
+								}
+							}),
+							el(ToggleControl, {
+								label: 'Remove link if count is one',
+								checked: !!removeSingleLinks,
+								onChange(value) {
+									props.setAttributes({
+										removeSingleLinks: value
 									});
 								}
 							})
