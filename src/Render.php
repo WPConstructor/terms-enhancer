@@ -63,14 +63,44 @@ class Render {
 				if ( isset( $block['attrs']['term'] ) ) {
 					$term_type = $block['attrs']['term'];
 					$terms     = $this->get_text_between_a_tags( $block_content );
+					$x         = 0;
 					foreach ( $terms as $term ) {
-						$counts        = $this->get_used_post_term_tag_count( $term, $term_type );
-						$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
+						++$x;
+						$counts = $this->get_used_post_term_tag_count( $term, $term_type );
+						if ( 1 === $counts ) {
+							$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
+							$link_str      = $this->get_xth_link( $block_content, $x );
+							$block_content = preg_replace(
+								'/' . preg_quote( $link_str, '/' ) . '/',
+								preg_replace(
+									'/href="[^"]*"/i',
+									'style="cursor:not-allowed"',
+									$link_str
+								),
+								$block_content
+							);
+						} else {
+							$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
+						}
 					}
 				}
 			}
 		}
 		return $block_content;
+	}
+
+	/**
+	 * Gets the xth link.
+	 *
+	 * @param string  $html The HTML to get the xth link.
+	 * @param integer $x The xth link to get.
+	 *
+	 * @return string|null The xth link text or null.
+	 */
+	private function get_xth_link( $html, $x ) {
+		preg_match_all( '/<a\b[^>]*>.*?<\/a>/i', $html, $matches );
+
+		return $matches[0][ $x - 1 ] ?? null;
 	}
 
 	/**
