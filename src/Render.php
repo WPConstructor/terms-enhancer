@@ -66,9 +66,9 @@ class Render {
 					$x         = 0;
 					foreach ( $terms as $term ) {
 						++$x;
-						$counts = $this->get_used_post_term_tag_count( $term, $term_type );
+						$counts        = $this->get_used_post_term_tag_count( $term, $term_type );
+						$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
 						if ( 1 === $counts ) {
-							$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
 							$link_str      = $this->get_xth_link( $block_content, $x );
 							$block_content = preg_replace(
 								'/' . preg_quote( $link_str, '/' ) . '/',
@@ -79,8 +79,6 @@ class Render {
 								),
 								$block_content
 							);
-						} else {
-							$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
 						}
 					}
 				}
