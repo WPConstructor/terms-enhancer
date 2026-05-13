@@ -35,7 +35,7 @@ define( __NAMESPACE__ . '\\PLUGIN_DIR', plugin_dir_path( MAIN_FILE ) );
  *
  * @return void
  */
-function init_callback() {
+function init_callback(): void {
 	// Gets plugin url of the parent dir.
 	define( __NAMESPACE__ . '\\PLUGIN_URL', plugin_dir_url( MAIN_FILE ) );
 }
