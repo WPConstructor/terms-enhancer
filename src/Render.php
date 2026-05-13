@@ -59,7 +59,6 @@ class Render {
 	 */
 	public function render( string $block_content, array $block ): string {
 		if ( 'core/post-terms' === $block['blockName'] ) {
-			d( $block );
 			if ( isset( $block['attrs']['displayCounts'] ) && true === $block['attrs']['displayCounts'] ) {
 				if ( isset( $block['attrs']['term'] ) ) {
 					$term_type = $block['attrs']['term'];
