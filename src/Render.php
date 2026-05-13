@@ -58,47 +58,78 @@ class Render {
 	 * @return string The block content.
 	 */
 	public function render( string $block_content, array $block ): string {
-		if ( 'core/post-terms' === $block['blockName'] ) {
-			if ( isset( $block['attrs']['displayCounts'] ) && true === $block['attrs']['displayCounts'] ) {
-				if ( isset( $block['attrs']['term'] ) ) {
-					$term_type = $block['attrs']['term'];
-					$terms     = $this->get_text_between_a_tags( $block_content );
-					$x         = 0;
-					foreach ( $terms as $term ) {
-						++$x;
-						$counts        = $this->get_used_post_term_tag_count( $term, $term_type );
-						$block_content = $this->replace_first_occurrence( '>' . $term . '<', '>' . $term . ' (' . $counts . ')<', $block_content );
-						if ( 1 === $counts ) {
-							$link_str      = $this->get_xth_link( $block_content, $x );
-							$block_content = preg_replace(
-								'/' . preg_quote( $link_str, '/' ) . '/',
-								preg_replace(
-									'/href="[^"]*"/i',
-									'style="cursor:not-allowed"',
-									$link_str
-								),
-								$block_content
-							);
-						}
-					}
+		if ( 'core/post-terms' !== ( $block['blockName'] ?? '' ) ) {
+			return $block_content;
+		}
+
+		if (
+			empty( $block['attrs']['displayCounts'] ) ||
+			empty( $block['attrs']['term'] )
+		) {
+			return $block_content;
+		}
+
+		$term_type = $block['attrs']['term'];
+
+		libxml_use_internal_errors( true );
+
+		$dom = new \DOMDocument();
+		$dom->loadHTML(
+			mb_convert_encoding( $block_content, 'HTML-ENTITIES', 'UTF-8' )
+		);
+
+		$xpath = new \DOMXPath( $dom );
+
+		$links = $xpath->query( '//a' );
+
+		if ( ! $links || 0 === $links->length ) {
+			return $block_content;
+		}
+
+		$x = 0;
+
+		foreach ( $links as $link ) {
+			++$x;
+
+			// phpcs:ignore
+			$term = trim( $link->textContent );
+			if ( '' === $term ) {
+				continue;
+			}
+
+			$counts = $this->get_used_post_term_tag_count( $term, $term_type );
+
+			// Append count safely.
+			// phpcs:ignore
+			$link->nodeValue = $term . ' (' . $counts . ')';
+
+			// Disable only if count === 1.
+			if ( 1 === $counts ) {
+				$existing_style = $link->getAttribute( 'style' );
+
+				$new_style = 'cursor:not-allowed';
+
+				if ( '' !== trim( $existing_style ) ) {
+					// Ensure proper spacing between declarations
+					$new_style = rtrim( $existing_style, ';' ) . '; ' . $new_style;
 				}
+
+				$link->setAttribute( 'style', $new_style );
 			}
 		}
-		return $block_content;
-	}
 
-	/**
-	 * Gets the xth link.
-	 *
-	 * @param string  $html The HTML to get the xth link.
-	 * @param integer $x The xth link to get.
-	 *
-	 * @return string|null The xth link text or null.
-	 */
-	private function get_xth_link( $html, $x ) {
-		preg_match_all( '/<a\b[^>]*>.*?<\/a>/i', $html, $matches );
+		$html = $dom->saveHTML();
 
-		return $matches[0][ $x - 1 ] ?? null;
+		// Optional cleanup: remove doctype/html/body wrappers added by DOMDocument.
+		$body = $dom->getElementsByTagName( 'body' )->item( 0 );
+
+		$result = '';
+		// phpcs:ignore
+		foreach ( $body->childNodes as $child ) {
+			$result .= $dom->saveHTML( $child );
+		}
+
+		return $result;
 	}
 
 	/**
@@ -130,37 +161,6 @@ class Render {
 		}
 		$count = isset( $term->count ) ? $term->count : 0;
 		return $count;
-	}
-
-	/**
-	 * Gets the text betweeen a tags.
-	 *
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 *
-	 * @param string $html The html to get the a tags.
-	 * @return array The texts of the a tags.
-	 */
-	private function get_text_between_a_tags( string $html ): array {
-
-		if ( trim( $html ) === '' ) {
-			return array();
-		}
-
-		$dom = new DOMDocument();
-
-		// Suppress errors caused by invalid HTML.
-		libxml_use_internal_errors( true );
-		$dom->loadHTML( $html );
-		$texts   = array();
-		$anchors = $dom->getElementsByTagName( 'a' );
-
-		foreach ( $anchors as $anchor ) {
-			// phpcs:ignore
-            $text = $anchor->nodeValue;
-			$texts[] = $text;
-		}
-		return $texts;
 	}
 
 	/**
