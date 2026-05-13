@@ -1,0 +1,20 @@
+# Auto detect text files and normalize line endings
+* text=auto
+
+# Ensure consistent line endings for code files
+*.php text eol=lf
+*.js  text eol=lf
+*.css text eol=lf
+*.md  text eol=lf
+*.txt text eol=lf
+
+# Binary files (no diff, no line ending changes)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+
+# Prevent diffs for minified files
+*.min.js  -diff
+*.min.css -diff

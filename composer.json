@@ -1,0 +1,20 @@
+{
+    "name": "wpconstructor/wpcn-terms-enhancer",
+    "description": "Enhance the WordPress Post Terms block with term counts, smart link control, and display improvements for better taxonomy UX.",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "WPConstructor",
+            "homepage": "https://wpconstructor.com/contact",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "WPConstructor\\TermsEnhancer\\": "src/"
+        }
+    }
+}
