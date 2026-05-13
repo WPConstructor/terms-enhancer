@@ -3,7 +3,7 @@
  * Bootstrap Class file.
  *
  * This file holds the class of the main bootstrap class
- * which handles the bootstrapping of wpcn Terms Enhancer. 
+ * which handles the bootstrapping of WPConstructor Terms Enhancer. 
  *
  * @package    WPConstructor\TermsEnhancer
  * @copyright  2026 by WPConstructor
@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Class Bootstrap
  *
- * The Bootstrap Class of wpcn Terms Enhancer.
+ * The Bootstrap Class of WPConstructor Terms Enhancer.
  *
  * @version 1.0.0
  * @since 1.0.0
