@@ -5,7 +5,7 @@
  * This file sets the constants of the WPConstructor Terms Enhancer plugin. 
  *
  * @package    WPConstructor\TermsEnhancer
- * @copyright  (c) 2024 by WPConstructor
+ * @copyright  2026 by WPConstructor
  * @license    GPL-2.0+ http://www.gnu.org/licenses/gpl-2.0.txt
  * @version    1.0.0 
  * @since      1.0.0 
