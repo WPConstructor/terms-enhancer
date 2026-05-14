@@ -78,6 +78,7 @@ if [ "$BRANCH" = "main" ]; then
   echo "git checkout main"
   echo "git merge feature/my-feature"
   echo ""
+  echo "test"
 
   # Force interactive terminal input
   read -r -p "Continue? (y/N): " CONFIRM </dev/tty
