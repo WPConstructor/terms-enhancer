@@ -104,14 +104,16 @@ class Render {
 				$link->nodeValue = $term . ' (' . $counts . ')';
 			}
 
-			// Disable only if count === 1.
 			if ( ! empty( $block['attrs']['removeSingleLinks'] ) && 1 === $counts ) {
+
+				// Remove href completely (disable link).
+				$link->removeAttribute( 'href' );
+
 				$existing_style = $link->getAttribute( 'style' );
 
 				$new_style = 'cursor:not-allowed';
 
 				if ( '' !== trim( $existing_style ) ) {
-					// Ensure proper spacing between declarations.
 					$new_style = rtrim( $existing_style, ';' ) . '; ' . $new_style;
 				}
 

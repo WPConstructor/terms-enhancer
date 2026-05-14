@@ -36,13 +36,13 @@ class PostTermsRenderTest extends TestCase {
 		$html = '
 <div class="taxonomy-post_tag wp-block-post-terms">
 
-  <a href="http://localhost/wpcon-dev/tutorials/tags/journal/" rel="tag">Journal</a>
+  <a href="http://localhost/wpcon-dev/blogs/tags/journal/" rel="tag">Journal</a>
   <span class="wp-block-post-terms__separator"></span>
 
-  <a href="http://localhost/wpcon-dev/tutorials/tags/test/" rel="tag" style="color:red">Test</a>
+  <a href="http://localhost/wpcon-dev/blogs/tags/test/" rel="tag" style="color:red">Test</a>
   <span class="wp-block-post-terms__separator"></span>
 
-  <a href="http://localhost/wpcon-dev/tutorials/tags/wpcontructor-com/" rel="tag">WPContructor.com</a>
+  <a href="http://localhost/wpcon-dev/blogs/tags/wpcontructor-com/" rel="tag">WPContructor.com</a>
 
 </div>';
 
@@ -59,17 +59,18 @@ class PostTermsRenderTest extends TestCase {
 		$mock->method( 'get_used_post_term_tag_count' )
 			->willReturnMap(
 				array(
-					array( 'Journal', 'tutorials', 2 ),
-					array( 'Test', 'tutorials', 1 ),
-					array( 'WPContructor.com', 'tutorials', 3 ),
+					array( 'Journal', 'blogs', 2 ),
+					array( 'Test', 'blogs', 1 ),
+					array( 'WPContructor.com', 'blogs', 3 ),
 				)
 			);
 
 		$block = array(
 			'blockName' => 'core/post-terms',
 			'attrs'     => array(
-				'displayCounts' => true,
-				'term'          => 'tutorials',
+				'displayCounts'     => true,
+				'removeSingleLinks' => true,
+				'term'              => 'blogs',
 			),
 		);
 
@@ -127,7 +128,7 @@ class PostTermsRenderTest extends TestCase {
 			'blockName' => 'core/other-block',
 			'attrs'     => array(
 				'displayCounts' => true,
-				'term'          => 'tutorials',
+				'term'          => 'blogs',
 			),
 		);
 
@@ -155,12 +156,77 @@ class PostTermsRenderTest extends TestCase {
 			'blockName' => 'core/post-terms',
 			'attrs'     => array(
 				'displayCounts' => true,
-				'term'          => 'tutorials',
+				'term'          => 'blogs',
 			),
 		);
 
 		$result = $mock->render( $html, $block );
 
 		$this->assertSame( $html, $result );
+	}
+
+	/**
+	 * Test that render disables terms with a single count when display counts disabled.
+	 *
+	 * @version 1.0.0
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function test_render_removes_link_when_single_count_and_display_counts_disabled(): void {
+		$html = '
+<div class="taxonomy-post_tag wp-block-post-terms">
+
+  <a href="http://localhost/wpcon-dev/blogs/tags/journal/" rel="tag">Journal</a>
+  <span class="wp-block-post-terms__separator"></span>
+
+  <a href="http://localhost/wpcon-dev/blogs/tags/test/" rel="tag">Test</a>
+
+</div>';
+
+		$mock = $this->getMockBuilder( Render::class )
+		->onlyMethods( array( 'get_used_post_term_tag_count' ) )
+		->getMock();
+
+		/**
+		 * Only Test has count = 1
+		 * Journal has count = 2
+		 */
+		$mock->method( 'get_used_post_term_tag_count' )
+		->willReturnMap(
+			array(
+				array( 'Journal', 'blogs', 2 ),
+				array( 'Test', 'blogs', 1 ),
+			)
+		);
+
+		$block = array(
+			'blockName' => 'core/post-terms',
+			'attrs'     => array(
+				'displayCounts'     => false,
+				'removeSingleLinks' => true,
+				'term'              => 'blogs',
+			),
+		);
+
+		$result = $mock->render( $html, $block );
+
+		// -----------------------------
+		// 1. Journal stays as link (count > 1)
+		// -----------------------------
+		$this->assertStringContainsString( 'Journal', $result );
+		$this->assertStringContainsString( '<a', $result );
+
+		// -----------------------------
+		// 2. Test link is removed (no <a> wrapping it)
+		// -----------------------------
+		$this->assertStringContainsString( 'Test', $result );
+		$this->assertStringNotContainsString( 'href="http://localhost/wpcon-dev/blogs/tags/test/"', $result );
+
+		// -----------------------------
+		// 3. Structure still valid
+		// -----------------------------
+		$this->assertStringContainsString( '<div', $result );
+		$this->assertStringContainsString( '</div>', $result );
 	}
 }
