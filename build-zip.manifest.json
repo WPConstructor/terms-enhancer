@@ -1,0 +1,14 @@
+{
+    "base" : "wpcn-terms-enhancer",
+    "zip-file-name" : "wpcn-terms-enhancer.zip",
+    "include":[
+        "/wpcn-terms-enhancer.php",
+        "/README.md",
+        "/LICENSE.md",
+        "/src/",
+        "/assets/"
+    ],
+    "add-index-php":[
+        "/"
+    ]
+}
