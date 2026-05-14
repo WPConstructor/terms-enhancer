@@ -14,8 +14,16 @@ if ! git diff --quiet; then
   echo "👉 Did you forget to save files in your editor?"
   echo "👉 Run: git add -A"
   echo ""
-  echo "❌ Commit aborted."
-  exit 1
+  read -p "Continue anyway? (y/N): " CONFIRM </dev/tty
+  case "$CONFIRM" in
+    [Yy]* )
+      echo "✅ Continuing..."
+      ;;
+    * )
+      echo "❌ Commit aborted."
+      exit 1
+      ;;
+  esac
 fi
 
 # -----------------------------
