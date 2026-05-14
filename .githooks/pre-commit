@@ -1,0 +1,118 @@
+#!/bin/bash
+
+echo "🔍 Running pre-commit checks..."
+
+# -----------------------------
+# 1. Block unstaged changes
+# -----------------------------
+if ! git diff --quiet; then
+  echo ""
+  echo "❌ Unstaged changes detected!"
+  echo "These files are modified but not staged:"
+  git diff --name-only
+  echo ""
+  echo "👉 Did you forget to save files in your editor?"
+  echo "👉 Run: git add -A"
+  echo ""
+  echo "❌ Commit aborted."
+  exit 1
+fi
+
+# -----------------------------
+# 2. Warn about untracked files
+# -----------------------------
+UNTRACKED=$(git ls-files --others --exclude-standard)
+
+if [ -n "$UNTRACKED" ]; then
+  echo ""
+  echo "⚠️  Untracked files detected:"
+  echo "$UNTRACKED"
+  echo ""
+    # Force interactive terminal input
+  read -p "Continue without adding them? (y/N): " CONFIRM </dev/tty
+
+  case "$CONFIRM" in
+    [Yy]* )
+      echo "✅ Continuing..."
+      ;;
+    * )
+      echo "❌ Commit aborted."
+      exit 1
+      ;;
+  esac
+fi
+
+# -----------------------------
+# 3. Ensure something is staged
+# -----------------------------
+if git diff --cached --quiet; then
+  echo ""
+  echo "❌ No changes staged for commit."
+  exit 1
+fi
+
+# -----------------------------
+# 4. Warn on main branch
+# -----------------------------
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$BRANCH" = "main" ]; then
+  echo ""
+  echo "⚠️  You are committing directly to 'main'"
+  echo ""
+  echo "Committing directly to main is not recommended because it can break the stable codebase and makes review/testing harder."
+  echo ""
+  echo "Recommended workflow:"
+  echo ""
+  echo "git checkout -b feature/my-feature"
+  echo "git add -A"
+  echo "git commit -m \"My change\""
+  echo "git push origin feature/my-feature"
+  echo ""
+  echo "Merge via PR:"
+  echo ""
+  echo "Open a Pull Request on GitHub/GitLab from feature/my-feature → main, review it, then click Merge."
+  echo ""
+  echo "Or merge locally:"
+  echo ""
+  echo "git checkout main"
+  echo "git merge feature/my-feature"
+  echo ""
+
+  # Force interactive terminal input
+  read -r -p "Continue? (y/N): " CONFIRM </dev/tty
+
+  case "$CONFIRM" in
+    [Yy]* )
+      echo "✅ Continuing commit on main..."
+      ;;
+    * )
+      echo "❌ Commit aborted."
+      exit 1
+      ;;
+  esac
+fi
+
+# -----------------------------
+# 5. Detect plugin version (sanity check)
+# -----------------------------
+FILE="wpcn-unlinker.php"
+
+if [ -f "$FILE" ]; then
+  PLUGIN_VERSION=$(php -r '
+    $contents = file_get_contents("'"$FILE"'");
+    if (preg_match("/Version:\s*([0-9.]+)/i", $contents, $m)) {
+      echo $m[1];
+    }
+  ')
+
+  if [ -z "$PLUGIN_VERSION" ]; then
+    echo ""
+    echo "⚠️  Could not detect plugin version in $FILE"
+  else
+    echo "📦 Detected plugin version: $PLUGIN_VERSION"
+  fi
+fi
+
+echo ""
+echo "✅ Pre-commit checks passed."

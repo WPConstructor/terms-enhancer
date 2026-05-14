@@ -42,5 +42,10 @@
         "test": "vendor/bin/phpunit --colors=auto tests",
         "backup:plugin": "php vendor/wpconstructor/scripts/bin/backup-plugin.php",
         "backup:all-plugins": "php vendor/wpconstructor/scripts/bin/backup-all-plugins.php"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
