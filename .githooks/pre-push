@@ -50,8 +50,10 @@ fi
 # -----------------------------
 # 3. Run PHPCS
 # -----------------------------
-pwd
-run_check "🔎 Running PHPCS..." vendor/bin/phpcs -p
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+
+run_check "🔎 Running PHPCS..." \
+  vendor/bin/phpcs "$PROJECT_ROOT"
 
 # -----------------------------
 # 4. Run PHPStan
