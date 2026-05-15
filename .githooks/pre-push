@@ -126,5 +126,7 @@ else
   echo "ℹ️ No tag detected — skipping build check."
 fi
 
+exit 1;
+
 echo ""
 echo "🎉 All pre-push checks passed. Safe to push!"
