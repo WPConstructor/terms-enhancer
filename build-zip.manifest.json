@@ -7,7 +7,9 @@
         "/LICENSE.md",
         "/src/",
         "/assets/",
-        "/vendor/wpconstructor/plugin-version/src/includes/plugin-version.php"
+        "/vendor/wpconstructor/plugin-version/src/includes/plugin-version.php",
+        "/vendor/autoload.php",
+        "/vendor/composer/"
     ],
     "add-index-php":[
         "/"
