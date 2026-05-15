@@ -58,6 +58,13 @@ jobs:
       - name: Install dependencies (including wpconstructor/scripts)
         run: composer install --no-interaction --prefer-dist --no-progress
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Minify assets
+        run: npx @wpconstructor/minify-assets assets
+
       - name: Validate plugin version matches tag
         run: |
           TAG_VERSION=${GITHUB_REF_NAME#v}
