@@ -1,6 +1,6 @@
 {
     "name": "wpconstructor/terms-enhancer",
-    "description": "Enhance the WordPress Terms block with term counts and smart link control for better taxonomy UX.",
+    "description": "Enhance the WordPress Terms block by adding term counts and optionally disabling links for single-use terms, improving taxonomy clarity and user experience.",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
     "authors": [

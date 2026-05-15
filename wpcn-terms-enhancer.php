@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WPConstructor Terms Enhancer
  * Plugin URI: https://wpconstructor.com/wpconstructor-terms-enhancer/
- * Description: Enhance the WordPress Post Terms block with term counts and smart link control.
+ * Description: Enhance the WordPress Terms block by adding term counts and optionally disabling links for single-use terms, improving taxonomy clarity and user experience.
  * Version: 0.5.0
  * Requires at least: 6.0
  * Requires PHP: 7.1
