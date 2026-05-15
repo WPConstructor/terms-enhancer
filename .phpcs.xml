@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <ruleset name="Project">
 
+    <!-- Only PHP files -->
+    <arg name="extensions" value="php"/>
+
     <!-- Scan your project -->
     <file>.</file>
 
