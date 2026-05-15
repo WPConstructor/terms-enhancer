@@ -6,7 +6,8 @@
         "/README.md",
         "/LICENSE.md",
         "/src/",
-        "/assets/"
+        "/assets/",
+        "/vendor/wpconstructor/plugin-version/src/includes/plugin-version.php"
     ],
     "add-index-php":[
         "/"
