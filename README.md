@@ -52,7 +52,7 @@ This helps prevent users from navigating to archive pages containing only a sing
 
 ### From Release ZIP
 
-1. Download the [latest release ZIP from GitHub](https://github.com/WPConstructor/terms-enhancer/releases/latest/download).
+1. Download the [latest release ZIP from GitHub](https://github.com/WPConstructor/terms-enhancer/releases/).
 2. In WordPress Admin go to:
 
 ```
