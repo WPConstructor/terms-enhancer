@@ -1,0 +1,98 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  ci:
+    name: Code Quality & Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      # PHPCS + WordPress Coding Standards
+      - name: Run PHPCS (WordPress Standard)
+        run: vendor/bin/phpcs
+
+      # PHPStan
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --error-format=table --no-progress
+
+      # PHPUnit
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit --testdox --colors=always
+
+  release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: ci
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer
+
+      - name: Install dependencies (including wpconstructor/scripts)
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Validate plugin version matches tag
+        run: |
+          TAG_VERSION=${GITHUB_REF_NAME#v}
+          FILE="wpcn-terms-enhancer.php"
+          if [ ! -f "$FILE" ]; then
+            echo "❌ Plugin file not found: $FILE"
+            exit 1
+          fi
+          PLUGIN_VERSION=$(grep -i "Version:" "$FILE" | head -n 1 | sed -E 's/^\s*\*\s*Version:\s*//I' | tr -d '\r' | xargs)
+          echo "Tag version: $TAG_VERSION"
+          echo "Plugin version: $PLUGIN_VERSION"
+
+          if [ "$PLUGIN_VERSION" != "$TAG_VERSION" ]; then
+            echo "❌ Version mismatch! Build stopped."
+            exit 1
+          fi
+
+          echo "✅ Version match confirmed"
+
+      - name: Build plugin ZIP
+        run: composer run build
+
+      - name: Verify ZIP exists
+        run: |
+          test -f build/wpcn-terms-enhancer.zip || (echo "❌ ZIP missing" && exit 1)
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wpcn-terms-enhancer
+          path: build/wpcn-terms-enhancer.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/wpcn-terms-enhancer.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
