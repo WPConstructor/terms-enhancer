@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["editor.css"],
+  "sourcesContent": [".wpcn-display-term-counts a::after, .wpcn-display-term-counts span:not([class], [data-rich-text-placeholder])::after{\n    content: ' (1)';\n}"],
+  "mappings": "AAAA,CAAC,yBAAyB,CAAC,OAAS,CAAnC,yBAA6D,IAAI,KAAK,CAAC,OAAQ,CAAC,4BAA4B,OACzG,QAAS,MACb",
+  "names": []
+}
