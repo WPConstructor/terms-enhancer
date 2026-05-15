@@ -104,7 +104,7 @@ class Render {
 				$link->nodeValue = $term . ' (' . $counts . ')';
 			}
 
-			if ( ! empty( $block['attrs']['removeSingleLinks'] ) && 1 === $counts ) {
+			if ( ! empty( $block['attrs']['disableSingleLinks'] ) && 1 === $counts ) {
 
 				// Remove href completely (disable link).
 				$link->removeAttribute( 'href' );
