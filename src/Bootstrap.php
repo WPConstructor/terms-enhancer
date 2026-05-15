@@ -84,7 +84,7 @@ class Bootstrap {
 
 		wp_enqueue_script(
 			'wpcn-terms-enhancer-blocks',
-			PLUGIN_URL . 'js/blocks.js',
+			PLUGIN_URL . 'assets/js/blocks.js',
 			array(
 				'wp-hooks',
 				'wp-compose',
