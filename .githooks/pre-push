@@ -22,7 +22,8 @@ run_check() {
   local status=$?
 
   if [ $status -ne 0 ]; then
-    echo "❌ Check failed."
+    echo ""
+    echo "❌ Check failed: $LABEL"
     exit $status
   fi
 }
@@ -49,8 +50,7 @@ fi
 # -----------------------------
 # 3. Run PHPCS
 # -----------------------------
-run_check "🔎 Running PHPCS..." \
-  vendor/bin/phpcs
+run_check "🔎 Running PHPCS..." vendor/bin/phpcs -p
 
 # -----------------------------
 # 4. Run PHPStan
