@@ -74,7 +74,7 @@
 								}
 							}),
 							el(ToggleControl, {
-								label: 'Disable single (1) term links',
+								label: 'Prevent navigation to single-post term archives',
 								checked: !!disableSingleLinks,
 								onChange(value) {
 									props.setAttributes({
