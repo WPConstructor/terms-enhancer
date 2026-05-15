@@ -77,7 +77,7 @@ The plugin automatically enhances the frontend output.
 
 ## Requirements
 
-- PHP 8.1+
+- PHP 7.1+
 - WordPress 6.0+
 - Composer (development only)
 
