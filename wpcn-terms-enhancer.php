@@ -46,10 +46,10 @@ if ( false === $plugin_version ) {
 	return; // Stop execution if requirements are not met.
 }
 
-define( __NAMESPACE__ . '\\VERSION', $plugin_version );
+define( 'WPCN_TE_PLUGIN_VERSION', $plugin_version );
 
 // Sets plugin dirs of the parent dir.
-define( __NAMESPACE__ . '\\MAIN_FILE', __FILE__ );
+define( 'WPCN_TE_MAIN_FILE', __FILE__ );
 
 // Requires and sets the constants used in this plugin.
 require_once __DIR__ . '/src/constants.php';

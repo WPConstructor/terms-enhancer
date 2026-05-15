@@ -104,8 +104,11 @@ class Render {
 				$link->nodeValue = $term . ' (' . $counts . ')';
 			}
 
-			if ( ! empty( $block['attrs']['disableSingleLinks'] ) && 1 === $counts ) {
-
+			if (
+			! empty( $block['attrs']['disableSingleLinks'] )
+			&& 1 === $counts
+			&& $link instanceof \DOMElement
+			) {
 				// Remove href completely (disable link).
 				$link->removeAttribute( 'href' );
 
@@ -148,30 +151,11 @@ class Render {
 	 */
 	protected function get_used_post_term_tag_count( string $term_name, string $term_type ): int {
 		$term = get_term_by( 'name', $term_name, $term_type );
-		if ( ! $term || is_wp_error( $term ) ) {
+
+		if ( ! ( $term instanceof \WP_Term ) ) {
 			return 0;
 		}
-		$count = isset( $term->count ) ? $term->count : 0;
-		return $count;
-	}
 
-	/**
-	 * Replaces string with first occurrence.
-	 *
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 *
-	 * @param string $search The string to search.
-	 * @param string $replace The string to replace.
-	 * @param string $subject The subject to replace.
-	 * @return string The replaced string subject.
-	 */
-	private function replace_first_occurrence( string $search, string $replace, string $subject ): string {
-		$pos = strpos( $subject, $search );
-
-		if ( false !== $pos ) {
-			$subject = substr_replace( $subject, $replace, $pos, strlen( $search ) );
-		}
-		return $subject;
+		return (int) $term->count;
 	}
 }

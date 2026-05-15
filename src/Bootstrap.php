@@ -84,7 +84,7 @@ class Bootstrap {
 
 		wp_enqueue_script(
 			'wpcn-terms-enhancer-blocks',
-			PLUGIN_URL . 'assets/js/blocks.js',
+			WPCN_TE_PLUGIN_URL . 'assets/js/blocks.js',
 			array(
 				'wp-hooks',
 				'wp-compose',
@@ -92,7 +92,7 @@ class Bootstrap {
 				'wp-components',
 				'wp-element',
 			),
-			VERSION,
+			WPCN_TE_PLUGIN_VERSION,
 			true
 		);
 	}
@@ -101,7 +101,7 @@ class Bootstrap {
 	 * Adds CSS to the block editor content.
 	 */
 	public function enqueue_block_assets() {
-		wp_enqueue_style( 'wpcn-terms-enhancer-editor', PLUGIN_URL . 'assets/css/editor.css', array(), VERSION );
+		wp_enqueue_style( 'wpcn-terms-enhancer-editor', WPCN_TE_PLUGIN_URL . 'assets/css/editor.css', array(), WPCN_TE_PLUGIN_VERSION );
 	}
 
 	/**

@@ -18,9 +18,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die();
 }
 
-// Sets plugin dirs of the parent dir.
-define( __NAMESPACE__ . '\\PLUGIN_DIR', plugin_dir_path( MAIN_FILE ) );
-
 /**
  * Init action callback.
  *
@@ -37,8 +34,8 @@ define( __NAMESPACE__ . '\\PLUGIN_DIR', plugin_dir_path( MAIN_FILE ) );
  */
 function init_callback(): void {
 	// Gets plugin url of the parent dir.
-	define( __NAMESPACE__ . '\\PLUGIN_URL', plugin_dir_url( MAIN_FILE ) );
+	define( 'WPCN_TE_PLUGIN_URL', plugin_dir_url( WPCN_TE_MAIN_FILE ) );
 }
 
-// Defines PLUGIN_URL constant when init is ran.
+// Defines WPCN_TE_PLUGIN_URL constant when init is ran.
 add_action( 'init', __NAMESPACE__ . '\\init_callback' );
