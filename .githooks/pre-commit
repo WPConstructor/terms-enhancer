@@ -105,7 +105,7 @@ fi
 # -----------------------------
 # 5. Detect plugin version (sanity check)
 # -----------------------------
-FILE="wpcn-unlinker.php"
+FILE="wpcn-terms-enhancer.php"
 
 if [ -f "$FILE" ]; then
   PLUGIN_VERSION=$(php -r '
