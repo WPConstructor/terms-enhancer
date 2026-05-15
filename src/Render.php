@@ -60,7 +60,7 @@ class Render {
 			return $block_content;
 		}
 
-		if ( empty( $block['attrs']['term'] ) ) {
+		if ( empty( $block['attrs']['term'] ) || empty( $block_content ) ) {
 			return $block_content;
 		}
 
