@@ -85,10 +85,7 @@ jobs:
           echo "✅ Version match confirmed"
 
       - name: Dump production autoloader
-        run: composer dump-autoload \
-          --no-dev \
-          --optimize \
-          --classmap-authoritative
+        run: composer dump-autoload --no-dev --optimize --classmap-authoritative
 
       - name: Build plugin ZIP
         run: composer run build
