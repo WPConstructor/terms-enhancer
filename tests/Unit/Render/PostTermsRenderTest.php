@@ -68,9 +68,9 @@ class PostTermsRenderTest extends TestCase {
 		$block = array(
 			'blockName' => 'core/post-terms',
 			'attrs'     => array(
-				'displayCounts'     => true,
-				'removeSingleLinks' => true,
-				'term'              => 'blogs',
+				'displayCounts'      => true,
+				'disableSingleLinks' => true,
+				'term'               => 'blogs',
 			),
 		);
 
@@ -203,9 +203,9 @@ class PostTermsRenderTest extends TestCase {
 		$block = array(
 			'blockName' => 'core/post-terms',
 			'attrs'     => array(
-				'displayCounts'     => false,
-				'removeSingleLinks' => true,
-				'term'              => 'blogs',
+				'displayCounts'      => false,
+				'disableSingleLinks' => true,
+				'term'               => 'blogs',
 			),
 		);
 
