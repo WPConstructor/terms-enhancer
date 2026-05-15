@@ -32,7 +32,7 @@
 					type: 'boolean',
 					default: false
 				},
-				removeSingleLinks: {
+				disableSingleLinks: {
 					type: 'boolean',
 					default: false
 				}
@@ -51,7 +51,7 @@
 				return el(BlockEdit, props);
 			}
 
-			const { displayCounts, removeSingleLinks } = props.attributes;
+			const { displayCounts, disableSingleLinks } = props.attributes;
 
 			return el(
 				Fragment,
@@ -74,11 +74,11 @@
 								}
 							}),
 							el(ToggleControl, {
-								label: 'Remove link if count is one',
-								checked: !!removeSingleLinks,
+								label: 'Disable single (1) term links',
+								checked: !!disableSingleLinks,
 								onChange(value) {
 									props.setAttributes({
-										removeSingleLinks: value
+										disableSingleLinks: value
 									});
 								}
 							})
