@@ -70,39 +70,36 @@ run_check "🧪 Running PHPUnit..." \
 # -----------------------------
 # 6. Validate tag version
 # -----------------------------
-while read local_ref local_sha remote_ref remote_sha
-do
-  if [[ "$local_ref" == refs/tags/* ]]; then
+TAG_NAME=$(git describe --exact-match --tags HEAD 2>/dev/null || true)
 
-    TAG_NAME=${local_ref#refs/tags/}
-    TAG_VERSION=${TAG_NAME#v}
+if [[ -n "$TAG_NAME" ]]; then
+  TAG_VERSION=${TAG_NAME#v}
 
-    echo ""
-    echo "🏷️ Validating tag: $TAG_NAME"
+  echo ""
+  echo "🏷️ Validating tag: $TAG_NAME"
 
-    if [ ! -f "$PLUGIN_FILE" ]; then
-      echo "❌ Plugin file not found: $PLUGIN_FILE"
-      exit 1
-    fi
-
-    PLUGIN_VERSION=$(php -r "
-      \$contents = file_get_contents('$PLUGIN_FILE');
-      if (preg_match('/Version:\s*([0-9.]+)/i', \$contents, \$m)) {
-        echo \$m[1];
-      }
-    ")
-
-    echo "Tag version: $TAG_VERSION"
-    echo "Plugin version: $PLUGIN_VERSION"
-
-    if [ "$PLUGIN_VERSION" != "$TAG_VERSION" ]; then
-      echo "❌ Version mismatch! Push blocked."
-      exit 1
-    fi
-
-    echo "✅ Version match confirmed"
+  if [ ! -f "$PLUGIN_FILE" ]; then
+    echo "❌ Plugin file not found: $PLUGIN_FILE"
+    exit 1
   fi
-done
+
+  PLUGIN_VERSION=$(php -r "
+    \$contents = file_get_contents('$PLUGIN_FILE');
+    if (preg_match('/Version:\s*([0-9.]+)/i', \$contents, \$m)) {
+      echo \$m[1];
+    }
+  ")
+
+  echo "Tag version: $TAG_VERSION"
+  echo "Plugin version: $PLUGIN_VERSION"
+
+  if [ "$PLUGIN_VERSION" != "$TAG_VERSION" ]; then
+    echo "❌ Version mismatch! Push blocked."
+    exit 1
+  fi
+
+  echo "✅ Version match confirmed"
+fi
 
 # -----------------------------
 # 7. Build check (only for tags)

@@ -1,0 +1,74 @@
+name: cloc report
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  cloc:
+    name: Generate cloc diff
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout all history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install cloc
+        run: sudo apt-get update && sudo apt-get install -y cloc
+
+      - name: Get current tag
+        id: current
+        run: echo "tag=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Get previous tag
+        id: prev
+        run: |
+          git fetch --tags
+          PREV_TAG=$(git tag --sort=-v:refname | grep -A1 "${GITHUB_REF_NAME}" | tail -n1)
+          echo "tag=$PREV_TAG" >> $GITHUB_OUTPUT
+
+      - name: Generate cloc report (current)
+        run: |
+          mkdir -p cloc
+          cloc src assets wpcn-terms-enhancer.php \
+            --include-lang=PHP,JavaScript,CSS \
+            --not-match-f="(\.min\.(js|css)|index\.php)$" \
+            --out=cloc/current.txt
+
+      - name: Generate cloc report (previous)
+        if: steps.prev.outputs.tag != ''
+        run: |
+          git checkout ${{ steps.prev.outputs.tag }}
+
+          cloc src assets wpcn-terms-enhancer.php \
+            --include-lang=PHP,JavaScript,CSS \
+            --not-match-f="(\.min\.(js|css)|index\.php)$" \
+            --out=cloc/previous.txt
+
+      - name: Compare reports
+        if: steps.prev.outputs.tag != ''
+        run: |
+          echo "## 📊 cloc diff (${{ steps.prev.outputs.tag }} → ${{ github.ref_name }})" > cloc/diff.md
+          echo "" >> cloc/diff.md
+          diff cloc/previous.txt cloc/current.txt >> cloc/diff.md || true
+
+      - name: Upload cloc artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloc-report
+          path: cloc/
+
+      - name: Add cloc to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: cloc/current.txt
+          body_path: cloc/diff.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
