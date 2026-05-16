@@ -1,6 +1,6 @@
 <h1 align="center">WPConstructor Terms Enhancer</h1>
 
-<p align="center"><img src="https://wpconstructor.com/assets/images/wpconstructor-terms-enhancer-logo.png" alt="Terms Enhancer Logo" width="400" height="400"></p>
+<p align="center"><img src="https://wpconstructor.com/assets/images/wpconstructor-terms-enhancer-logo.png" alt="Terms Enhancer Logo" width="400"></p>
 
 Enhance the WordPress `core/post-terms` block with:
 
