@@ -1,4 +1,6 @@
-# WPConstructor Terms Enhancer
+<h1 align="center">WPConstructor Terms Enhancer</h1>
+
+<img src="https://wpconstructor.com/assets/images/wpconstructor-terms-enhancer-logo.png" alt="Terms Enhancer Logo" width="400" height="400" align="center">
 
 Enhance the WordPress `core/post-terms` block with:
 
@@ -80,6 +82,14 @@ The plugin automatically enhances the frontend output.
 - PHP 7.1+
 - WordPress 6.0+
 - Composer (development only)
+
+---
+
+## Screenshots
+
+<img src="https://wpconstructor.com/assets/images/terms-block-screenshot.jpg" alt="Screenshot of the terms block." align="center">
+
+<img src="https://wpconstructor.com/assets/images/terms-block-settings-screenshot.jpg" alt="Screenshot of the settings of the terms block." align="center">
 
 ---
 
