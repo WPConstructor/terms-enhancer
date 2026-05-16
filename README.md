@@ -16,7 +16,7 @@ Enhance the WordPress `core/post-terms` block with:
 
 ### Display Term Counts
 
-Automatically append the number of posts using a term.
+If enabled, the number of posts assigned to each term will be automatically displayed.
 
 Example:
 
@@ -28,9 +28,9 @@ JavaScript (3)
 
 ---
 
-### Disable Single-Use Links
+### Prevent navigation to single-post term archives
 
-If a term is only used once, the plugin removes the `href` attribute and visually disables the link.
+If enabled, links for terms used only once will be visually disabled and their href attribute will be removed automatically.
 
 Example:
 
