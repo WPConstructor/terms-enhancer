@@ -10,8 +10,6 @@ Enhance the WordPress `core/post-terms` block with:
 - ✅ Gutenberg editor integration
 - ✅ Lightweight and dependency-free frontend
 
----
-
 ## Features
 
 ### Display Term Counts
@@ -25,8 +23,6 @@ PHP (5)
 MySQL (1)
 JavaScript (3)
 ```
-
----
 
 ### Prevent navigation to single-post term archives
 
@@ -48,8 +44,6 @@ After:
 
 This helps prevent users from navigating to archive pages containing only a single post.
 
----
-
 ## Installation
 
 ### From Release ZIP
@@ -64,8 +58,6 @@ Plugins → Add New → Upload Plugin
 3. Upload the ZIP file.
 4. Activate the plugin.
 
----
-
 ## Usage
 
 1. Add the **Post Terms** block in the Gutenberg editor.
@@ -75,15 +67,11 @@ Plugins → Add New → Upload Plugin
 
 The plugin automatically enhances the frontend output.
 
----
-
 ## Requirements
 
 - PHP 7.1+
 - WordPress 6.0+
 - Composer (development only)
-
----
 
 ## Screenshots
 
@@ -91,13 +79,9 @@ The plugin automatically enhances the frontend output.
 
 <p align="center"><img src="https://wpconstructor.com/assets/images/terms-block-settings-screenshot.jpg" alt="Screenshot of the settings of the terms block."></p>
 
----
-
 ## License
 
 [GPL-3.0-or-later](https://www.gnu.org/licenses/gpl-3.0.html)
-
----
 
 ## Author
 
