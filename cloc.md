@@ -1,5 +1,7 @@
 # 📊 Code Metrics with cloc
 
+The cloc report is automatically generated and attached during the GitHub Actions release workflow. However, if you want to run the analysis manually on your local machine, follow the instructions below.
+
 ## 🧰 Installation
 
 ### 🐧 Linux (Debian/Ubuntu)
@@ -23,8 +25,6 @@ Or via Scoop:
 scoop install cloc
 ```
 
----
-
 ## 📈 Project analysis (recommended scope)
 
 To get an accurate breakdown of the project (PHP, JavaScript, and CSS only), excluding `index.php`, `*.min.js`, and `*.min.css`, use:
@@ -32,8 +32,6 @@ To get an accurate breakdown of the project (PHP, JavaScript, and CSS only), exc
 ```
 cloc src assets wpcn-terms-enhancer.php --include-lang=PHP,JavaScript,CSS --not-match-f="(\.min\.(js|css)|index\.php)$"
 ```
-
----
 
 ## 🧠 What this does
 
@@ -43,8 +41,6 @@ cloc src assets wpcn-terms-enhancer.php --include-lang=PHP,JavaScript,CSS --not-
 - `--include-lang=PHP,JavaScript,CSS` → only relevant languages
 - `(\.min\.(js|css)|index\.php)$` → excludes index files, *.min.js, and *.min.css
 
----
-
 ## 🚀 Recommended usage
 
 Run from plugin root:
@@ -52,8 +48,6 @@ Run from plugin root:
 ```
 cloc src assets wpcn-terms-enhancer.php --include-lang=PHP,JavaScript,CSS --not-match-f="(\.min\.(js|css)|index\.php)$"
 ```
-
----
 
 ## ⚡ Tip
 
